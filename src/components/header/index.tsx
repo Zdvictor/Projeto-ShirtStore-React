@@ -45,11 +45,11 @@ const Header: React.FC = React.memo( () => {
 
   }, [searchProducts, allProducts]);
 
-  const handleRedirectForProduct = (id: number) => {
+  const handleRedirectForProduct = (slug: string) => {
 
     setFilteredProducts([])
     setSearchProducts('')
-    navigate(`/product/${id}`)
+    navigate(`/product/${slug}`)
 
   }
   
@@ -108,7 +108,7 @@ const Header: React.FC = React.memo( () => {
           {/* Informações do produto */}
           <div className="flex-1">
 
-              <button onClick={() => handleRedirectForProduct(product.id)} className="text-left text-lg font-bold text-gray-800">{product.name}</button>
+              <button onClick={() => handleRedirectForProduct(product.slug)} className="text-left text-lg font-bold text-gray-800">{product.name}</button>
 
           </div>
 
