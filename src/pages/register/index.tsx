@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Cookies from "js-cookie";
+import { useSearchParams } from "react-router-dom";
 
 // VALIDATION-FORM
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -41,6 +41,10 @@ const Register: React.FC = () => {
     const navigate = useNavigate();
     const { loading } = useSelector((state: RootState) => state.auth);
 
+    const [searchParams] = useSearchParams();
+    const nameFromQuery = searchParams.get("name");
+    const emailFromQuery = searchParams.get("email");
+
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [confirmShowPassword, setConfirmShowPassword] = useState<boolean>(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -49,29 +53,16 @@ const Register: React.FC = () => {
         resolver: yupResolver<FormData>(schema),
     });
 
-    
+
     useEffect(() => {
-
-        const cookie = Cookies.get("shirtstore_user");
-        const user = cookie ? JSON.parse(cookie) : null;
-
-        setValue("name", user?.name)
-        setValue("email", user?.email)
-        setValue("password", user?.email ? "registerByGoogle123." : "")
-        setValue("confirmPassword", user?.email ? "registerByGoogle123." : "")
-
-        setRegisteredByGoogle(user?.email)
-
-        
-        return () => {
-
-            Cookies.remove("shirtstore_user")
-
+        if (emailFromQuery && nameFromQuery) {
+          setValue("name", nameFromQuery);
+          setValue("email", emailFromQuery);
+          setValue("password", "registerByGoogle123.");
+          setValue("confirmPassword", "registerByGoogle123.");
+          setRegisteredByGoogle(emailFromQuery);
         }
-
-
-
-    }, [ setValue ]);
+      }, [setValue, emailFromQuery, nameFromQuery]);
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
