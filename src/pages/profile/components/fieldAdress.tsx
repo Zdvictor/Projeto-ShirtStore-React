@@ -91,7 +91,7 @@ const FieldAdress: React.FC<FieldAdressProps> = ({ openAdress, setOpenAdress }) 
         }
     };
 
-    const handleChangeAdress = async (data: FormData) => {
+    const handleChangeAdress = async (data: any) => {
 
         const adress = {
 
