@@ -1,4 +1,4 @@
-Acesse o Projeto: **(adicione aqui o link de deploy, se houver)**
+Acesse o Projeto: https://shirtstorebr.vercel.app/
 
 # 🚀 Shirt Store
 
